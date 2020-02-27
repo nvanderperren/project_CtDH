@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+
+###Licence: CC BY-SA 4.0 (zie: https://creativecommons.org/licenses/by-sa/4.0)
 ### MetatadataExtraction_mapsize.py ### 10/02/2020
 
 versie_nummer = '>>> VERSIE 1.1 (met omvang HTTrack) <<<'
