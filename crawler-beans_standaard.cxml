@@ -37,7 +37,7 @@
 # This Properties map is specified in the Java 'property list' text format
 # http://java.sun.com/javase/6/docs/api/java/util/Properties.html#load%28java.io.Reader%29
 
-metadata.operatorContactUrl=https://www.amsab.be
+metadata.operatorContactUrl=  <!--VUL HIER DE URL IN VAN JE ORGANISATIE-->
 metadata.jobName=basic
 metadata.description=Basic crawl starting with useful defaults
 
@@ -54,7 +54,7 @@ metadata.description=Basic crawl starting with useful defaults
     <prop key="seeds.textSource.value">
 
 # URLS HERE
-http://www.charta91.be
+http://www.charta91.be <!--HET IS MOGELIJK OM MEERDERE URL'S TE VERMELDEN, MAAR DAN WORDEN DEZE IN 1 WARC SAMEN BEWAARD-->
 
     </prop>
    </props>
@@ -66,7 +66,7 @@ http://www.charta91.be
        <property name="operatorContactUrl" value="[see override above]"/>
        <property name="jobName" value="[see override above]"/>
        <property name="description" value="[see override above]"/>
-  <!-- <property name="robotsPolicyName" value="obey"/> -->
+       <property name="robotsPolicyName" value="ignore"/>
   <!-- <property name="operator" value=""/> -->
   <!-- <property name="operatorFrom" value=""/> -->
   <!-- <property name="organization" value=""/> -->
@@ -140,7 +140,7 @@ http://www.charta91.be
     <ref bean="acceptSurts" />
     <!-- ...but REJECT those more than a configured link-hop-count from start... -->
     <bean class="org.archive.modules.deciderules.TooManyHopsDecideRule">
-     <!-- <property name="maxHops" value="20" /> -->
+     <!-- <property name="maxHops" value="20" /> --> <!--DIT KAN EVENTUEEL VERMINDERD WORDEN ALS DE CRAWLER VASTZIT IN EEN TRAP/KALENDER -->
     </bean>
     <!-- ...but ACCEPT those more than a configured link-hop-count from start... -->
     <bean class="org.archive.modules.deciderules.TransclusionDecideRule">
@@ -173,7 +173,7 @@ http://www.charta91.be
     </bean>
     <!-- ...and REJECT those with more than threshold number of path-segments... -->
     <bean class="org.archive.modules.deciderules.TooManyPathSegmentsDecideRule">
-     <!-- <property name="maxPathDepth" value="20" /> -->
+     <!-- <property name="maxPathDepth" value="20" /> --> <!--DIT KAN EVENTUEEL VERMINDERD WORDEN ALS DE CRAWLER VASTZIT IN EEN TRAP/KALENDER--> -->
     </bean>
     <!-- ...but always ACCEPT those marked as prerequisitee for another URI... -->
     <bean class="org.archive.modules.deciderules.PrerequisiteAcceptDecideRule">
