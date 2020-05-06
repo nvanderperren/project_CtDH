@@ -37,7 +37,7 @@
 # This Properties map is specified in the Java 'property list' text format
 # http://java.sun.com/javase/6/docs/api/java/util/Properties.html#load%28java.io.Reader%29
 
-metadata.operatorContactUrl=  <!--VUL HIER DE URL IN VAN JE ORGANISATIE-->
+metadata.operatorContactUrl=https://www.amsab.be/
 metadata.jobName=basic
 metadata.description=Basic crawl starting with useful defaults
 
@@ -54,7 +54,7 @@ metadata.description=Basic crawl starting with useful defaults
     <prop key="seeds.textSource.value">
 
 # URLS HERE
-http://www.charta91.be <!--HET IS MOGELIJK OM MEERDERE URL'S TE VERMELDEN, MAAR DAN WORDEN DEZE IN 1 WARC SAMEN BEWAARD-->
+https://www.natuurpunt.be/
 
     </prop>
    </props>
@@ -66,7 +66,7 @@ http://www.charta91.be <!--HET IS MOGELIJK OM MEERDERE URL'S TE VERMELDEN, MAAR 
        <property name="operatorContactUrl" value="[see override above]"/>
        <property name="jobName" value="[see override above]"/>
        <property name="description" value="[see override above]"/>
-       <property name="robotsPolicyName" value="ignore"/>
+   <property name="robotsPolicyName" value="ignore"/> 
   <!-- <property name="operator" value=""/> -->
   <!-- <property name="operatorFrom" value=""/> -->
   <!-- <property name="organization" value=""/> -->
@@ -140,7 +140,7 @@ http://www.charta91.be <!--HET IS MOGELIJK OM MEERDERE URL'S TE VERMELDEN, MAAR 
     <ref bean="acceptSurts" />
     <!-- ...but REJECT those more than a configured link-hop-count from start... -->
     <bean class="org.archive.modules.deciderules.TooManyHopsDecideRule">
-     <!-- <property name="maxHops" value="20" /> --> <!--DIT KAN EVENTUEEL VERMINDERD WORDEN ALS DE CRAWLER VASTZIT IN EEN TRAP/KALENDER -->
+     <!-- <property name="maxHops" value="20" /> -->
     </bean>
     <!-- ...but ACCEPT those more than a configured link-hop-count from start... -->
     <bean class="org.archive.modules.deciderules.TransclusionDecideRule">
@@ -173,7 +173,7 @@ http://www.charta91.be <!--HET IS MOGELIJK OM MEERDERE URL'S TE VERMELDEN, MAAR 
     </bean>
     <!-- ...and REJECT those with more than threshold number of path-segments... -->
     <bean class="org.archive.modules.deciderules.TooManyPathSegmentsDecideRule">
-     <!-- <property name="maxPathDepth" value="20" /> --> <!--DIT KAN EVENTUEEL VERMINDERD WORDEN ALS DE CRAWLER VASTZIT IN EEN TRAP/KALENDER--> -->
+     <!-- <property name="maxPathDepth" value="20" /> -->
     </bean>
     <!-- ...but always ACCEPT those marked as prerequisitee for another URI... -->
     <bean class="org.archive.modules.deciderules.PrerequisiteAcceptDecideRule">
@@ -258,7 +258,7 @@ http://www.charta91.be <!--HET IS MOGELIJK OM MEERDERE URL'S TE VERMELDEN, MAAR 
  <bean id="fetchHttp" class="org.archive.modules.fetcher.FetchHTTP">
   <!-- <property name="useHTTP11" value="false" /> -->
   <!-- <property name="maxLengthBytes" value="0" /> -->
-  <!-- <property name="timeoutSeconds" value="1200" /> --> <!-- EVENTUEEL LAGER ZETTEN -->
+   <property name="timeoutSeconds" value="200" /> 
   <!-- <property name="maxFetchKBSec" value="0" /> -->
   <!-- <property name="defaultEncoding" value="ISO-8859-1" /> -->
   <!-- <property name="shouldFetchBodyRule"> 
@@ -341,7 +341,7 @@ http://www.charta91.be <!--HET IS MOGELIJK OM MEERDERE URL'S TE VERMELDEN, MAAR 
   <!-- <property name="poolMaxActive" value="1" /> -->
   <!-- <property name="MaxWaitForIdleMs" value="500" /> -->
   <!-- <property name="skipIdenticalDigests" value="false" /> -->
-  <!-- <property name="maxTotalBytesToWrite" value="0" /> -->  <!-- EVENTUEEL EEN LIMIET OPZETTEN-->
+  <!-- <property name="maxTotalBytesToWrite" value="0" /> -->
   <!-- <property name="directory" value="${launchId}" /> -->
   <!-- <property name="storePaths">
         <list>
@@ -360,10 +360,10 @@ http://www.charta91.be <!--HET IS MOGELIJK OM MEERDERE URL'S TE VERMELDEN, MAAR 
   <!-- <property name="processErrorOutlinks" value="false" /> -->
  </bean>
  <bean id="disposition" class="org.archive.crawler.postprocessor.DispositionProcessor">
-   <property name="delayFactor" value="1.0" /> <!-- STANDAARD IS 5, MAAR DIT IS ZEER HOOG -->
-   <property name="minDelayMs" value="1" />  <!-- DEZE, EN ONDERSTAANDE IS MISSCHIEN TE LAAG, KAN ERTOE LEIDEN DAT WEBSITE TRAGER WERKT VOOR GEBRUIKERS-->
-   <property name="respectCrawlDelayUpToSeconds" value="5" /> 
-   <property name="maxDelayMs" value="50" /> 
+   <property name="delayFactor" value="1.0" /> 
+   <property name="minDelayMs" value="1" /> 
+   <property name="respectCrawlDelayUpToSeconds" value="20" /> 
+   <property name="maxDelayMs" value="200" /> 
   <!-- <property name="maxPerHostBandwidthUsageKbSec" value="0" /> -->
  </bean>
  <!-- <bean id="rescheduler" class="org.archive.crawler.postprocessor.ReschedulingProcessor">
@@ -388,7 +388,7 @@ http://www.charta91.be <!--HET IS MOGELIJK OM MEERDERE URL'S TE VERMELDEN, MAAR 
  <!-- CRAWLCONTROLLER: Control interface, unifying context -->
  <bean id="crawlController" 
    class="org.archive.crawler.framework.CrawlController">
-   <property name="maxToeThreads" value="50" /> <!-- 25 IS TE LAAG, 100 IS ONNODIG HOOG -->
+   <property name="maxToeThreads" value="75" /> 
   <!-- <property name="pauseAtStart" value="true" /> -->
   <!-- <property name="runWhileEmpty" value="false" /> -->
   <!-- <property name="recorderInBufferBytes" value="524288" /> -->
@@ -399,10 +399,32 @@ http://www.charta91.be <!--HET IS MOGELIJK OM MEERDERE URL'S TE VERMELDEN, MAAR 
  <!-- FRONTIER: Record of all URIs discovered and queued-for-collection -->
  <bean id="frontier" 
    class="org.archive.crawler.frontier.BdbFrontier">
-  <property name="retryDelaySeconds" value="60" /> <!--VERMINDERT VAN 900 NAAR 60, EN ONDERSTAANDE VAN 30 NAAR 5-->
-  <property name="maxRetries" value="5" /> 
-  
-  se" value="false" /> -->
+  <!-- <property name="queueTotalBudget" value="-1" /> -->
+  <!-- <property name="balanceReplenishAmount" value="3000" /> -->
+  <!-- <property name="errorPenaltyAmount" value="100" /> -->
+  <!-- <property name="precedenceFloor" value="255" /> -->
+  <!-- <property name="queuePrecedencePolicy">
+        <bean class="org.archive.crawler.frontier.precedence.BaseQueuePrecedencePolicy" />
+       </property> -->
+   <property name="snoozeLongMs" value="3000" /> 
+   <property name="retryDelaySeconds" value="60" />
+   <property name="maxRetries" value="5" /> 
+  <!-- <property name="recoveryLogEnabled" value="true" /> -->
+  <!-- <property name="maxOutlinks" value="6000" /> -->
+  <!-- <property name="extractIndependently" value="false" /> -->
+  <!-- <property name="outbound">
+        <bean class="java.util.concurrent.ArrayBlockingQueue">
+         <constructor-arg value="200"/>
+         <constructor-arg value="true"/>
+        </bean>
+       </property> -->
+  <!-- <property name="inbound">
+        <bean class="java.util.concurrent.ArrayBlockingQueue">
+         <constructor-arg value="40000"/>
+         <constructor-arg value="true"/>
+        </bean>
+       </property> -->
+  <!-- <property name="dumpPendingAtClose" value="false" /> -->
  </bean>
  
  <!-- URI UNIQ FILTER: Used by frontier to remember already-included URIs --> 
@@ -449,10 +471,10 @@ http://www.charta91.be <!--HET IS MOGELIJK OM MEERDERE URL'S TE VERMELDEN, MAAR 
 <bean id='veryPolite' class='org.archive.spring.Sheet'>
  <property name='map'>
   <map>
-   <entry key='disposition.delayFactor' value='1'/> <!--DEZE EN ONDERSTAANDE ZIJN MISSCHIEN TE LAAG-->
-   <entry key='disposition.minDelayMs' value='1'/>
-   <entry key='disposition.maxDelayMs' value='50'/>
-   <entry key='disposition.respectCrawlDelayUpToSeconds' value='5'/>
+   <entry key='disposition.delayFactor' value='1'/>
+   <entry key='disposition.minDelayMs' value='3'/>
+   <entry key='disposition.maxDelayMs' value='200'/>
+   <entry key='disposition.respectCrawlDelayUpToSeconds' value='20'/>
   </map>
  </property>
 </bean>
@@ -511,7 +533,7 @@ http://www.charta91.be <!--HET IS MOGELIJK OM MEERDERE URL'S TE VERMELDEN, MAAR 
  
  <!--  CRAWLLIMITENFORCER: stops crawl when it reaches configured limits -->
  <bean id="crawlLimiter" class="org.archive.crawler.framework.CrawlLimitEnforcer">
-  <!-- <property name="maxBytesDownload" value="0" /> --> <!--HIER KAN EVENTUEEL EEN LIMIET WORDEN GEZET INDIEN CRAWL VASTZIT IN TRAP-->
+  <!-- <property name="maxBytesDownload" value="0" /> -->
   <!-- <property name="maxDocumentsDownload" value="0" /> -->
   <!-- <property name="maxTimeSeconds" value="0" /> -->
  </bean>
@@ -554,9 +576,9 @@ http://www.charta91.be <!--HET IS MOGELIJK OM MEERDERE URL'S TE VERMELDEN, MAAR 
    class="org.archive.crawler.frontier.SurtAuthorityQueueAssignmentPolicy">
   <property name="forceQueueAssignment" value="" />
   <property name="deferToPrevious" value="true" />
-  <property name="parallelQueues" value="25" />   <!-- VERHOOGT VAN 1 NAAR 25-->
+  <property name="parallelQueues" value="25" />
  </bean>
- 
+
  
  <!-- URI PRECEDENCE POLICY -->
  <!--
