@@ -2,8 +2,8 @@
 # ===============================================================================================================================
 # Script to automate web-archiving with Wget
 #
-#	Version: 1.0 (27/02/2020)
-#	Author: Maarten Savels
+#	Version: 1.1 (18/05/2020)
+#	Author: Maarten Savels, Nastasia Vanderperren
 #       Licence: CC BY-SA 4.0 (zie: https://creativecommons.org/licenses/by-sa/4.0)
 #       Dependencies: Wget must be installed
 # ================================================================================================================================
@@ -133,12 +133,8 @@ EOF
 		start=$SECONDS
 		wget -e "robots=off" \
 		     -m \
-		     -nv \
 		     --output-file="../metadata/wget_outputfile.txt" \
 		     --warc-file="${line#*;}" \
-		     --page-requisites \
-		     --html-extension \
-		     --convert-links \
 		     -w "0.1" \
 		     "$website"
 		     
@@ -146,7 +142,7 @@ EOF
 		runtime=$((end - start))
 		software="$(wget -V | head -1)"
 		software="${software%??}"  # removes last 2 chars. Necessary for removing \r\n in Windows only!
-		options="--execute=robots=off, --mirror, --no-verbose, --warc-file, --page-requisites, --html-extension, --convert-links, -w 0.1"
+		options="--execute=robots=off, --mirror, --warc-file, -w 0.1"
 		warc_file="${line#*;}"".warc"
 		if [ -f "$warc_file" ]; then
 			warc_size="$(du -s -B 1 "$warc_file" | cut -f1)"  # filesize in B
